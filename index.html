@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Current 893</title>
+  <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      color: #222222;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    #albums {
+      max-width: 650px;
+      margin: 50px auto;
+    }
+
+    .list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #dadde3;
+      border-top: none;
+    }
+
+    .list li {
+      display: flex;
+      flex-direction: row;
+      border-top: 1px solid #dadde3;
+      padding: 8px 0;
+    }
+
+    .list li:nth-child(even) {
+      background: #fbfbfb;
+    }
+
+    .list li span,
+    .buttons span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+    }
+
+    .list li span:nth-last-child(-n+2),
+    .buttons span:nth-last-child(-n+2) {
+      justify-content: flex-start;
+      padding: 0 30px;
+      flex: 1.8;
+    }
+
+    .rank {
+      font-size: 22px;
+    }
+
+    .artist {
+      font-weight: 700;
+    }
+
+    .album {
+      opacity: 0.6;
+      font-size: 14px;
+    }
+
+    .artwork {
+      max-width: 80px;
+      border-radius: 3px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .buttons span {
+      padding: 20px 0;
+    }
+
+    .buttons span.sort {
+      cursor: pointer;
+      position: relative;
+    }
+
+    .buttons span.sort::after {
+      content: "▶";
+      position: absolute;
+      text-indent: 5px;
+    }
+
+    .buttons span.asc::after {
+      content: "▼";
+    }
+
+    .buttons span.desc::after {
+      content: "▲";
+    }
+
+    .buttons span.asc,
+    .buttons span.desc {
+      color: #2980b9;
+    }
+
+    input.search {
+      display: block;
+      width: 100%;
+      font-family: 'Montserrat', sans-serif;
+      padding: 10px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="albums">
+    <div class="controls">
+      <input type="text" class="search" placeholder="Search" />
+      <div class="buttons">
+        <span class="sort" data-sort="rank">Rank</span>
+        <span>Artwork</span>
+        <span class="sort" data-sort="artist">Artist</span>
+        <span class="sort" data-sort="album">Album</span>
+      </div>
+    </div>
+    <ul class="list">
+    </ul>
+  </div>
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.2.0/list.min.js"></script>
+
+  <script>
+
+    var albums = []
+
+    $.get('./data/albums.json', function(data) {
+      albums = data
+      init()
+    })
+
+    var item = '<li>' +
+      '<span class="rank"></span>' +
+      '<span><img class="artwork" /></span>' +
+      '<span class="artist"></span>' +
+      '<span class="album"></span>' +
+    '</li>'
+
+    function init() {
+      var options = {
+        valueNames: [
+          'rank',
+          { attr: 'src', name: 'artwork' },
+          'artist',
+          'album'
+        ],
+        item: item
+      }
+      var userList = new List('albums', options, albums);
+      userList.sort('rank', {
+        order: 'asc'
+      })
+    }
+
+  </script>
+
+</body>
+</html>
