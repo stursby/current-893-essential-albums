@@ -61,10 +61,6 @@
       flex: 2;
     }
 
-    .rank {
-      font-size: 22px;
-    }
-
     .artist {
       font-weight: 700;
     }
@@ -130,11 +126,21 @@
       border-radius: 0px;
     }
 
+    @media(max-width: 600px) {
+      .buttons span.sort::after {
+        content: "";
+      }
+    }
+
     @media(min-width: 600px) {
       body {
         font-size: 1em;
         padding: 0;
         margin: 50px auto;
+      }
+
+      .rank {
+        font-size: 22px;
       }
 
       .list li span:nth-last-child(-n+2),
