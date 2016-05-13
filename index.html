@@ -17,11 +17,14 @@
       font-family: 'Montserrat', sans-serif;
       font-weight: 400;
       -webkit-font-smoothing: antialiased;
+      padding: 0 25px;
+      font-size: 0.8em;
     }
 
     #albums {
+      width: 100%;
       max-width: 650px;
-      margin: 50px auto;
+      margin: 25px auto;
     }
 
     .list {
@@ -54,8 +57,8 @@
     .list li span:nth-last-child(-n+2),
     .buttons span:nth-last-child(-n+2) {
       justify-content: flex-start;
-      padding: 0 30px;
-      flex: 1.8;
+      padding: 0 10px;
+      flex: 2;
     }
 
     .rank {
@@ -69,10 +72,16 @@
     .album {
       opacity: 0.6;
       font-size: 14px;
+      overflow: scroll;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
     }
 
     .artwork {
-      max-width: 80px;
+      max-width: 50px;
       border-radius: 3px;
     }
 
@@ -91,17 +100,17 @@
     }
 
     .buttons span.sort::after {
-      content: "▶";
+      content: "\25B6 \FE0E";
       position: absolute;
       text-indent: 5px;
     }
 
     .buttons span.asc::after {
-      content: "▼";
+      content: "\25BC";
     }
 
     .buttons span.desc::after {
-      content: "▲";
+      content: "\25B2";
     }
 
     .buttons span.asc,
@@ -115,6 +124,32 @@
       font-family: 'Montserrat', sans-serif;
       padding: 10px;
       font-size: 16px;
+      -webkit-appearance: none;
+      outline: none;
+      border: 1px solid #dadde3;
+      border-radius: 0px;
+    }
+
+    @media(min-width: 600px) {
+      body {
+        font-size: 1em;
+        padding: 0;
+        margin: 50px auto;
+      }
+
+      .list li span:nth-last-child(-n+2),
+      .buttons span:nth-last-child(-n+2) {
+        padding: 0 30px;
+        flex: 1.8;
+      }
+
+      .album {
+        overflow: auto;
+      }
+
+      .artwork {
+        max-width: 80px;
+      }
     }
   </style>
 </head>
